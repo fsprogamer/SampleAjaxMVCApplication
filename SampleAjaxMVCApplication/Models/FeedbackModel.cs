@@ -17,6 +17,7 @@ namespace SampleAjaxMVCApplication.Models
 
         [Required]
         [StringLength(250)]
+        [DataType(DataType.MultilineText)]
         [Display(Name = "Сообщение")]
         public string MessageText { get; set; }
     }

@@ -7,9 +7,16 @@
 <h2>Feedback</h2>
 
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
+@using (Ajax.BeginForm(
+                    "feedback",
+                    "home",
+                    new AjaxOptions
+                    {
+                        HttpMethod = "post",
+                        UpdateTargetId = "target",
+                        LoadingElementId = "sendingProgress"
+                    }))
+{   
     
     <div class="form-horizontal">
         <h4>FeedbackModel</h4>
@@ -40,8 +47,17 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-md-offset-2 col-md-10">            
+            <input type="submit" value="Create" class="btn btn-default"/>
+            <p>
+                <strong>
+                    <span id="sendingProgress" style="display: none;">
+                        ждите, идет отправка сообщения...
+                        <img src='@Href("~/Content/Images/ajax_loader_big.gif")' alt="Ждите" />
+                    </span>
+                </strong>
+            </p>
+            <p id="target"></p>
             </div>
         </div>
     </div>
@@ -51,6 +67,4 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
